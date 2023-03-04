@@ -1,1 +1,58 @@
 # Daxolotl-Travel-Planner
+
+## File Structure
+- Client
+  - package.json
+  - README.md
+  - src
+    - components
+      - Trip.js
+      - TripOverview.js
+      - Itinerary.js
+      - AddActivities.js
+  - context
+    - TripContext (or use useContext and useState)
+    - ItineraryContext.js
+    - Side Notes:
+    - Only need one ItineraryContext because activities and trip overview are tied to itinerary, which is tied to itinerary state
+    - When you add activities, it adds to itinerary
+    - TripOverview - no party members, expense trackers, just destination
+  - hooks
+    - useTripContext.js
+    - useItineraryContext.js
+  - pages
+    - Home.js
+    - App.js
+    - index.css
+    - main.js
+  - .gitignore
+
+
+- SERVER
+  - server.js
+  - package.json
+  - .gitignore
+  - .env
+  - controllers
+    - userController
+    - cookieController
+    - sessionController
+    - itineraryController.js
+    - activityController.js - structure for activity
+    - Side Notes:
+    - userController should have SQL controller, login, verify, delete
+    - Use specific error messages for each for debugging
+  - models
+    - itineraryModel.js
+    - activityModel.js
+    - sessionModel.js
+    - Side Note:
+    - Only need activity, itinerary - the 2 mongo models
+    - tripModel.js will be replaced by a single SQL model pulled by PG pool to pool our queries
+  - routes
+    - user.js
+    - trips.js
+    - itinerary.js
+    - activity.js
+    - Side Note: 
+    - user.js should have login, verify user with cookie and session

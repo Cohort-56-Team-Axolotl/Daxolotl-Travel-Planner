@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import '../stylesheets/styles.scss';
+import './stylesheets/styles.scss';
 
 
 //Pages
@@ -19,7 +19,7 @@ function App() {
               element = {<Login/>}
             /> */}
             <Route
-              path = "/home"
+              path = "/home"b
               element = {<Home />}
             />
           </Routes>
