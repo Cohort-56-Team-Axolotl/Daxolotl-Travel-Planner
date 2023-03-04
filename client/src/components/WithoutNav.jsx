@@ -1,11 +1,12 @@
 import React from 'react';
+import axolotlBoba from '../images/AxolotlBoba.png';
 
 const WithoutNav = () => {
 
   return (
     // <div>this is the withoutNav</div>
     <nav className='withoutNav'>
-      <img src='../assets/AxolotlBoba.png' />
+      <img src={axolotlBoba} />
     </nav>
   );
 };

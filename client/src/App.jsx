@@ -2,6 +2,10 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './stylesheets/styles.scss';
 
+//Contexts
+import { ItinerariesContextProvider } from './contexts/ItinerariesContext';
+import { ActivitiesContextProvider } from './contexts/ActivitiesContext';
+
 
 //Pages
 import Home from './pages/Home';
@@ -21,8 +25,14 @@ function App() {
               element = {<Login/>}
             />
             <Route
-              path = "/home"b
-              element = {<Home />}
+              path = "/home"
+              element = {
+                <ItinerariesContextProvider>
+                  <ActivitiesContextProvider>
+                    <Home />
+                  </ActivitiesContextProvider>
+                </ItinerariesContextProvider>
+              }
             />
             <Route
               path = "/signup"
