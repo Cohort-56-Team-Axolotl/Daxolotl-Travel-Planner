@@ -10,11 +10,11 @@ router.post('/',
   (req, res) => res.status(200).json(res.locals.newActivity)
 );
 
-// //DELETE an activity
-// router.delete('/:id',
-//   activityController.deleteActivity,
-//   (req, res) => res.status(200).json(res.locals.deleted)
-// );
+//DELETE an activity
+router.delete('/:id',
+  activityController.deleteActivity,
+  (req, res) => res.status(200).json(res.locals.deleted)
+);
 
 // //PATCH an activity
 // router.patch('/:id',

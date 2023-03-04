@@ -6,13 +6,11 @@ const activityController = {};
 // return value will be the object we pass into next, invoking global error handler
 const createErr = (errInfo) => {
   const { method, type, err } = errInfo;
-  return { 
+  return {
     log: `activityController.${method} ${type}: ERROR: ${typeof err === 'object' ? JSON.stringify(err) : err}`,
     message: { err: `Error occurred in activityController.${method}. Check server logs for more details.` }
   };
 };
-
-
 
 
 //Create new activity, for manual input // req.body  from front end form
@@ -35,10 +33,44 @@ activityController.createActivity = async (req, res, next) => {
 
 //Delete activity
 activityController.deleteActivity = async (req, res, next) {
-  const toDelete = req.params.activity;
-  Activity.deleteOne({})
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    if (id) {
+      const activity = await Activity.findOneAndDelete({ _id: id });
+      return next();
+    } else {
+      return next(createErr({
+        method: 'deleteActivity',
+        type: 'deleteActivityErr',
+        err
+      }));
+    }
+  }
 }
 //Update Activity
+// returns the document after update was applied
+activityController.updateActivity = async (req, res, next) {
+  const { id } = req.params;
+  const updatedActivity = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    if (id) {
+      const activity = await Activity.findOneAndUpdate({ _id: id }, {
+        ...updatedActivity
+      }, {
+        new: true
+      });
+      return next();
+    } else {
+      return next(createErr({
+        method: 'updateActivity',
+        type: 'updateActivityErr',
+        err
+      }))
+    }
+  }
+}
 
 module.exports = activityController;
 
