@@ -12,6 +12,7 @@ const createErr = (errInfo) => {
   };
 };
 
+// user id will be from the cookie
 // read: aka get all itineraries by user / user id
 // users_itineraries table 
 itineraryController.getAllItineraries = (req, res, next) => {
@@ -21,8 +22,8 @@ itineraryController.getAllItineraries = (req, res, next) => {
 
 // read: get itineraries by id for now
 itineraryController.getItinerary = (req, res, next) => {
-  const { id } = req.params;
-  Itinerary.findOne({ _id: id })
+  const { itineraryid } = req.params;
+  Itinerary.findOne({ _id: itineraryid })
     .then(itineraryDoc => {
       if (itineraryDoc === null) {
         return next(createErr({
@@ -62,12 +63,12 @@ itineraryController.createItinerary = (req, res, next) => {
 
 // update by id
 itineraryController.updateItinerary = (req, res, next) => {
-  const { id } = req.params;
+  const { itineraryid } = req.params;
 
   // TODO update object from req.body destructure into variables
   const { update } = req.body;
 
-  Itinerary.findOneAndUpdate({ _id: id }, { update })
+  Itinerary.findOneAndUpdate({ _id: itineraryid }, { update })
     .then(itineraryDoc => {
       if (itineraryDoc === null) {
         return next(createErr({
@@ -87,8 +88,8 @@ itineraryController.updateItinerary = (req, res, next) => {
 
 // delete by id
 itineraryController.deleteItinerary = (req, res, next) => {
-  const { id } = req.params;
-  Itinerary.findOneAndDelete({ _id: id })
+  const { itineraryid } = req.params;
+  Itinerary.findOneAndDelete({ _id: itineraryid })
     .then(itineraryDoc => {
       if (itineraryDoc === null) {
         return next(createErr({
