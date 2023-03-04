@@ -38,6 +38,7 @@ activityController.deleteActivity = async (req, res, next) {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     if (id) {
       const activity = await Activity.findOneAndDelete({ _id: id });
+      res.locals.deleted = activity;
       return next();
     } else {
       return next(createErr({
@@ -61,6 +62,7 @@ activityController.updateActivity = async (req, res, next) {
       }, {
         new: true
       });
+      res.locals.updated = activity;
       return next();
     } else {
       return next(createErr({
