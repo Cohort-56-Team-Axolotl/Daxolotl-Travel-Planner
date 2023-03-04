@@ -21,7 +21,7 @@ function App() {
               element = {<Login/>}
             />
             <Route
-              path = "/home"
+              path = "/home"b
               element = {<Home />}
             />
             <Route

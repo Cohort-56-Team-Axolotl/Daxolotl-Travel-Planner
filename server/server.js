@@ -14,6 +14,9 @@ mongoose.set('strictQuery', true);
 const path = require('path');
 
 //Routers
+const userRouter = require('./routes/users');
+const itinerariesRouter = require('./routes/itineraries');
+const activitiesRouter = require('./routes/activities');
 
 //Middleware
 app.use(express.json());
@@ -30,7 +33,9 @@ app.use((req, res, next) => {
 });
 
 //Routes default should be /api/
-
+app.use('/api/users', userRouter);
+app.use('/api/itineraries', itinerariesRouter);
+app.use('/api/activities', activitiesRouter);
 
 // catch-all route handler for any requests to an unknown route
 app.use((req, res) => res.sendStatus(404));
