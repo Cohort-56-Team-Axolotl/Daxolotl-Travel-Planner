@@ -6,36 +6,36 @@ const cookieController = require('../controllers/cookieController');
 const sessionController = require('../controllers/sessionController');
 
 
-// //User signs up
-// router.post('/signup', 
-//   userController.createUser, 
-//   (req, res) => {
-//     res.status(200).json(res.locals.user);
-//   }
-// );
+//User signs up
+router.post('/signup', 
+  userController.createUser, 
+  (req, res) => {
+    res.status(200).json(res.locals.newUser);
+  }
+);
 
-// //Check for session
-// router.get('/sessions/:cookieId',
-//   sessionController.verifySession,
-//   (req, res) => {
-//     res.status(200).json(res.locals.session);
-//   }
-// );
+//Check for session
+router.get('/sessions/',
+  sessionController.verifySession,
+  (req, res) => {
+    res.status(200).json(res.locals.session);
+  }
+);
 
-// //User logs in
-// router.post('/login', 
-//   userController.verifyUser, 
-//   cookieController.setSSIDCookie,
-//   sessionController.startSession,
-//   (req, res) => {
-//     res.status(200).json(res.locals.session);
-//   }
-// );
+//User logs in
+router.post('/login', 
+  userController.verifyUser, 
+  cookieController.setSSIDCookie,
+  sessionController.startSession,
+  (req, res) => {
+    res.status(200).json(res.locals.session);
+  }
+);
 
-// //User logs out
-// router.delete('/logout/:cookieId',
-//   sessionController.deleteSession,
-//   (req, res) => res.status(200).json(res.locals.session)
-// );
+//User logs out
+router.delete('/logout/',
+  sessionController.deleteSession,
+  (req, res) => res.status(200).json(res.locals.session)
+);
 
 module.exports = router;
