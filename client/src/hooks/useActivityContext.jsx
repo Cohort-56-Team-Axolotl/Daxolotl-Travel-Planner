@@ -3,7 +3,7 @@ import { ActivitiesContext } from '../contexts/ActivitiesContext.jsx';
 
 
 
-export const useActivitesContext = () => {
+export const useActivitiesContext = () => {
   const context = useContext(ActivitiesContext);
 
   if (!context) {

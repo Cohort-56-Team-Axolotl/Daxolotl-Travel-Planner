@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const ItineraryForm = () => {
   const { dispatch } = useItinerariesContext();
-  const [title, setTitle] = useState('');
+  const [itinerary_name, setItineraryName] = useState('');
   const [destination, setDestination] = useState('');
   const [start_date, setStartDate] = useState('');
   const [end_date, setEndDate] = useState('');
@@ -12,8 +12,9 @@ const ItineraryForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     //Post request to add a new itinerary -> should return data as the new itinerary
-    const newItinerary = { title, destination, start_date, end_date };
+    const newItinerary = { itinerary_name, destination, start_date, end_date };
 
+    //TODO double check endpoint if id needed
     const response = await axios.post('/api/itineraries', newItinerary, {
       headers: {
         'Content-Type': 'application/json'
@@ -23,7 +24,7 @@ const ItineraryForm = () => {
     const newData = await response.json();
 
     if(response.status === 200){
-      setTitle('');
+      setItineraryName('');
       setDestination('');
       setStartDate('');
       setEndDate('');
@@ -37,10 +38,10 @@ const ItineraryForm = () => {
   return(
     <div>
       <form className='itineraryForm' onSubmit = {handleSubmit}>
-        <label>Title</label>
+        <label>Itinerary Name</label>
         <input type='text'
-          value = {title}
-          onChange = {(e) => setTitle(e.target.value)}
+          value = {itinerary_name}
+          onChange = {(e) => setItineraryName(e.target.value)}
         />
 
         <label>Destination</label>
