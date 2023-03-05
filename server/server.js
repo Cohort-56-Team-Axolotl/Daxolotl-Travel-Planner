@@ -41,7 +41,8 @@ app.use('/api/activities', activitiesRouter);
 app.use((req, res) => res.sendStatus(404));
 
 //Connect to db (edit depending on db)
-mongoose.connect(process.env.MONGO_URI);
+mongoose.connect(process.env.MONGO_URI)
+  .then(console.log('connected to MongoDB'));
 
 app.listen(process.env.PORT, () => {
   console.log(`Server listening on port: ${process.env.PORT}...`);

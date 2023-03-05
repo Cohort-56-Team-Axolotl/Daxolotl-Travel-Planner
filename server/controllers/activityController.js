@@ -32,45 +32,53 @@ activityController.createActivity = async (req, res, next) => {
 };
 
 //Delete activity
-activityController.deleteActivity = async (req, res, next) {
-  const { id } = req.params;
+activityController.deleteActivity = async (req, res, next) => {
+  // const { id } = req.params;
+  // const activtyToDelete = req.body;
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    if (id) {
-      const activity = await Activity.findOneAndDelete({ _id: id });
-      res.locals.deleted = activity;
-      return next();
-    } else {
-      return next(createErr({
-        method: 'deleteActivity',
-        type: 'deleteActivityErr',
-        err
-      }));
-    }
-  }
+  // try {
+  //   if (mongoose.Types.ObjectId.isValid(id)) {
+  //     return
+  //   }
+  //   // Activity.deleteOne({})
+  //   const activity = await Activity.findOneAndDelete({ _id: id });
+  
+  //   if (!activity) {
+  
+  //   }
+  // } catch (err) {
+
+  // }
+  next();
 }
 //Update Activity
 // returns the document after update was applied
-activityController.updateActivity = async (req, res, next) {
+activityController.updateActivity = async (req, res, next) => {
   const { id } = req.params;
   const updatedActivity = req.body;
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    if (id) {
-      const activity = await Activity.findOneAndUpdate({ _id: id }, {
-        ...updatedActivity
-      }, {
-        new: true
-      });
-      res.locals.updated = activity;
-      return next();
+  try {
+    if (mongoose.Types.ObjectId.isValid(id)) {
+      if (id) {
+        const activity = await Activity.findOneAndUpdate({ _id: id }, {
+          ...updatedActivity
+        }, {
+          new: true
+        });
+        res.locals.updated = activity;
+        return next();
+      } else {
+        throw new Error('falsy activity_id');
+      }
     } else {
-      return next(createErr({
-        method: 'updateActivity',
-        type: 'updateActivityErr',
-        err
-      }))
+      throw new Error('nonvalid activity_id');
     }
+  } catch(err) {
+    return next(createErr({
+      method: 'updateActivity',
+      type: 'updateActivityErr',
+      err
+    }));
   }
 }
 
