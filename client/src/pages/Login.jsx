@@ -7,10 +7,12 @@ import LoginForm from '../components/LoginForm.jsx';
 const Login = () => {
 
   return(
-    <div>
+    <div className='login-page'>
       <WithoutNav />
-      <LoginForm />
-      <h5><a href='/signup'>Sign Up Here</a></h5>
+      <div className='login-container'>
+        <LoginForm />
+        <h5><a href='/signup'>Don&apos;t have an account? Sign up</a></h5>
+      </div>
     </div>
   );
 

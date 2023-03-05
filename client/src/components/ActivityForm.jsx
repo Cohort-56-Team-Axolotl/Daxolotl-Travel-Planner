@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useActivitesContext } from '../hooks/useActivityContext.jsx';
+import { useActivitiesContext } from '../hooks/useActivityContext.jsx';
 import axios from 'axios';
 
 const ActivityForm = () => {
-  const { dispatch } = useActivitesContext();
-  const [activityName, setActivityName] = useState('');
+  const { dispatch } = useActivitiesContext();
+  const [name, setActivityName] = useState('');
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [duration, setDuration] = useState('');
@@ -15,7 +15,7 @@ const ActivityForm = () => {
     // prevents the entire page from refreshing when submit is clicked
     e.preventDefault();
     //Post request to add a new activity -> should return data as the new activity
-    const newActivity = { activityName, date, time, duration, description, location };
+    const newActivity = { name, date, time, duration, description, location };
 
     const response = await axios.post('/api/activities', newActivity, {
       headers: {
@@ -42,7 +42,7 @@ const ActivityForm = () => {
       <form className='activityForm' onSubmit = {handleSubmit}>
         <label>Activity Name</label>
         <input type='text'
-          value = {activityName}
+          value = {name}
           onChange = {(e) => setActivityName(e.target.value)}
         />
 
