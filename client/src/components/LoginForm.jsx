@@ -11,7 +11,7 @@ const LoginForm = () => {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  // const [error, setError] = useState('');
 
   return (
     <>
@@ -28,7 +28,7 @@ const LoginForm = () => {
     
         <button>Login</button>
       </form>
-      {error && <div>{error}</div>}
+      {/* {error && <div>{error}</div>} */}
     </>
   );
   

@@ -21,13 +21,12 @@ const itinerarySchema = new Schema({
     required: true
   },
   // Can someone review the syntax for this? -ak
-  activities: [{
-    name: String,
-    id: {
+  activities: [
+    {
       type: Schema.Types.ObjectId,
       ref: 'Activity'
     }
-  }]
+  ]
 });
 
 module.exports = mongoose.model('Itinerary', itinerarySchema);

@@ -42,6 +42,8 @@ itineraryController.getItinerary = (req, res, next) => {
 };
 
 // create: 
+
+//TODO add to users_itineraries DB
 itineraryController.createItinerary = (req, res, next) => {
   const { itinerary_name, destination, start_date, end_date } = req.body;
   const activities = [];

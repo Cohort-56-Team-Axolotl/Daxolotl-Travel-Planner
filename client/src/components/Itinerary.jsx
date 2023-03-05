@@ -7,11 +7,11 @@ const Itinerary = ({ itinerary }) => {
 
   // need to render an overview component (For now just itinerary.title & display itinerary.start_date - itinerary.end_date)
   // activities list
-  // acc activites box
+  // acc activities box
   // yelp recc box
-  // itinerary.activites = [{a1}, {a2}, {a3}]
+  // itinerary.activities = [{a1}, {a2}, {a3}]
   // req.params -> is itinerary._id
-  const activites = itinerary.activites;
+  const activities = itinerary.activities;
 
   axios.get('/api/activities/' + itinerary._id)
     .then(response => response.json())
@@ -27,7 +27,7 @@ const Itinerary = ({ itinerary }) => {
       </div>
       <div>
         <h2>Itinerary</h2>
-        {activites && activites.map(activity => (
+        {activities && activities.map(activity => (
           <Activity key={activity._id} activity={activity} />
         ))}
       </div> 
