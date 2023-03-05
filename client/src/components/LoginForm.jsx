@@ -27,12 +27,12 @@ const LoginForm = () => {
       setLoggedIn(true);
       console.log('you have logged in!');
     }
-
-    //to send user to home page once loggedIn is true
-    if(loggedIn){
-      return <Navigate to='/home' />;
-    }
   };
+
+  //to send user to home page once loggedIn is true
+  if(loggedIn){
+    return <Navigate to='/home' />;
+  }
 
   return (
     <>

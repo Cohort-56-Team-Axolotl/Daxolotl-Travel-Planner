@@ -19,32 +19,21 @@ const SALT_WORK_FACTOR = 10;
 userController.createUser = (req, res, next) => {
 
   const { username, password, first_name, last_name } = req.body;
+  console.log(req.body);
   // regex for non a-z characters at the start of any of these vars
-  const regex = /^[^a-z]+/gi;
+  // const regex = /^[^a-z]+/gi;
   // might not catch "" strings??
-  if(regex.test(first_name) 
-    || regex.test(last_name)
-    || regex.test(username)
-    || regex.test(password)) return next(createErr({
-    method: 'createUser',
-    type: 'createUserError',
-  }));
+  // if(regex.test(first_name) 
+  //   || regex.test(last_name)
+  //   || regex.test(username)
+  //   || regex.test(password)) return next(createErr({
+  //   method: 'createUser',
+  //   type: 'createUserError',
+  // }));
 
   
   // bcrypt here
-  
 
-  const query = { 
-    text: 'INSERT INTO public.user (username, password, first_name, last_name) values($1, $2, $3, $4);',
-    values: [
-      username,
-      password,
-      first_name,
-      last_name
-    ]
-  };
-
-  db.query(query);
   bcrypt.hash(password, SALT_WORK_FACTOR)
     .then((hashPassword) => {
       const query = { 
@@ -83,6 +72,7 @@ userController.verifyUser = async (req, res, next) => {
   //Get username and password in request body (sent from user login event)
   const { username, password } = req.body;
   //If either one isn't filled in, return a fill in all fields error to the user
+  console.log(username, password)
   try {
     if (!username || !password){
       throw new Error('Please fill all fields');

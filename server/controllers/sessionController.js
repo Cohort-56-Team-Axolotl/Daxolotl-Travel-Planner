@@ -59,7 +59,7 @@ sessionController.deleteSession = async (req, res, next) => {
     } 
     //Save session to res.locals
     res.locals.session = session;
-    res.clearCookies('ssid');
+    res.clearCookie('ssid');
     return next();
     //Catch error and return to the global error handler
   }catch(error){

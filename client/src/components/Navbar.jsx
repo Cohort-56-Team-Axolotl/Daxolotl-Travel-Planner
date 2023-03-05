@@ -8,9 +8,7 @@ const Navbar = () => {
   const [goToLogin, setGoToLogin] = useState(false);
 
   const handleClick = async () => {
-    const response = await axios.delete('/users/logout/');
-    const data = await response.json();
-    console.log(data);
+    const response = await axios.delete('/api/users/logout/');
 
     if (response.status === 200){
       setGoToLogin(true);
@@ -27,7 +25,7 @@ const Navbar = () => {
       <Link to='/home'>
         <button>Home</button>
       </Link>
-      <span span className = 'log-out' onClick = {handleClick}><h2>Logout</h2></span>
+      <button span className = 'log-out' onClick = {handleClick}><h2>Logout</h2></button>
     </nav>
   );
 };

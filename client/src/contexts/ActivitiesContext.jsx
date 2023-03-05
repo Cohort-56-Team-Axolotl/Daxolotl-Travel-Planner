@@ -24,9 +24,9 @@ const activityReducer = (state, action) => {
     }
   case 'DELETE_ACTIVITY':
     // filter through the current activities state and delete the one with the matching id with our new action.payload
-    const newActivities = state.activities.filter((activity) => {
-      // insert logic here
-    });
+    // const newActivities = state.activities.filter((activity) => {
+    //   // insert logic here
+    // });
 
     return {
       activities: newActivities

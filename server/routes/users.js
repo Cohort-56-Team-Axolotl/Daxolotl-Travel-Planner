@@ -15,7 +15,7 @@ router.post('/signup',
 );
 
 //Check for session
-router.get('/sessions/',
+router.get('/sessions',
   sessionController.verifySession,
   (req, res) => {
     res.status(200).json(res.locals.session);
@@ -33,7 +33,7 @@ router.post('/login',
 );
 
 //User logs out
-router.delete('/logout/',
+router.delete('/logout',
   sessionController.deleteSession,
   (req, res) => res.status(200).json(res.locals.session)
 );
