@@ -6,6 +6,10 @@ userController.createUser = (req, res, next) => {
 
   const { username, password, first_name, last_name } = req.body;
 
+  
+  // bcrypt here
+  
+
   const query = { 
     text: 'INSERT INTO public.user (username, password, first_name, last_name) values($1, $2, $3, $4);',
     values: [

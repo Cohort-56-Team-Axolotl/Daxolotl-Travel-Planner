@@ -35,8 +35,17 @@ activityController.createActivity = async (req, res, next) => {
 
 //Delete activity
 activityController.deleteActivity = async (req, res, next) {
-  const toDelete = req.params.activity;
-  Activity.deleteOne({})
+  const { id } = req.params.activity;
+
+  if (mongoose.Types.ObjectId.isValid(id)) {
+    return
+  }
+  // Activity.deleteOne({})
+  const activity = await Activity.findOneAndDelete({ _id: id });
+
+  if (!activity) {
+
+  }
 }
 //Update Activity
 
