@@ -12,7 +12,7 @@ const Signup = () => {
   const [last_name, setLastName] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  // const [error, setError] = useState('');
 
 
   return(
@@ -40,7 +40,7 @@ const Signup = () => {
 
         <button>Sign Up</button>
       </form>
-      {error && <div>{error}</div>}
+      {/* {error && <div>{error}</div>} */}
     </div>
   );
 };
