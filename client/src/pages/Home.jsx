@@ -74,7 +74,7 @@ const Home = () => {
       </div>
       {modalOpen &&
         <div>
-          <button onClick={toggleModal}></button>
+          <button onClick={toggleModal}>Cancel</button>
           <form className='itineraryForm' onSubmit = {handleSubmit}>
             <label>Itinerary Name</label>
             <input type='text'
