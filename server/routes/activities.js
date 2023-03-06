@@ -3,8 +3,11 @@ const router = express.Router();
 
 const activityController = require('../controllers/activityController');
 
-// GET all activities
-router.get('/:itineraryId')
+//GET all activities
+router.get('/:itineraryId',
+  activityController.getActivities,
+  (req, res) => res.status(200).json(res.locals.activities)
+);
 
 //POST a new activity
 router.post('/',

@@ -16,6 +16,8 @@ const createErr = (errInfo) => {
 // read: aka get all itineraries by user / user id
 // users_itineraries table 
 itineraryController.getAllItineraries = (req, res, next) => {
+
+  //res.locals.itineraries = itinerariesDoc;
   next();
 };
 
@@ -53,7 +55,7 @@ itineraryController.createItinerary = (req, res, next) => {
   // shorthand assignment
   Itinerary.create({ itinerary_name, destination, start_date, end_date, activities })
     .then(itineraryDoc => {
-      res.locals.itinerary = itineraryDoc;
+      res.locals.newItinerary = itineraryDoc;
       return next();
     })
     .catch(err => (next(createErr({
@@ -78,7 +80,7 @@ itineraryController.updateItinerary = (req, res, next) => {
           type: 'ItineraryNotFound'
         }));
       }
-      res.locals.Itinerary = itineraryDoc;
+      res.locals.updated = itineraryDoc;
       return next();
     })
     .catch(err => (next(createErr({
@@ -99,7 +101,7 @@ itineraryController.deleteItinerary = (req, res, next) => {
           type: 'ItineraryNotFound'
         }));
       }
-      res.locals.Itinerary = itineraryDoc;
+      res.locals.deleted = itineraryDoc;
       return next();
     })
     .catch(err => (next(createErr({
