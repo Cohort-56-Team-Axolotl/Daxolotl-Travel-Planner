@@ -12,6 +12,20 @@ const createErr = (errInfo) => {
   };
 };
 
+//Get all activities
+const getActivities = async (req, res, next) => {
+  try {
+    const activities = await Activity.find({}).sort({ date: -1 }).sort({ time: -1 });
+    res.locals.activities = activities;
+  } catch (err) {
+    return next(createErr({
+      method: 'getActivities',
+      type: 'activitiesGetErr',
+      err
+    }));
+  }
+}
+
 
 //Create new activity, for manual input // req.body  from front end form
 activityController.createActivity = async (req, res, next) => {
@@ -33,24 +47,26 @@ activityController.createActivity = async (req, res, next) => {
 
 //Delete activity
 activityController.deleteActivity = async (req, res, next) => {
-  // const { id } = req.params;
-  // const activtyToDelete = req.body;
+  const { id } = req.params;
 
-  // try {
-  //   if (mongoose.Types.ObjectId.isValid(id)) {
-  //     return
-  //   }
-  //   // Activity.deleteOne({})
-  //   const activity = await Activity.findOneAndDelete({ _id: id });
-  
-  //   if (!activity) {
-  
-  //   }
-  // } catch (err) {
+  try {
+    if (mongoose.Types.ObjectId.isValid(id)) {
+      const activity = await Activity.findOneAndDelete({ _id: id });
+      if (!activity) {
+        throw new Error('falsy activity_id');
+      }
+    } else {
+      throw new Error('nonvalid activity_id');
+    }
 
-  // }
-  next();
-}
+  } catch (err) {
+    return next(createErr({
+      method: 'deleteActivity',
+      type: 'activityDeleteErr',
+      err
+    }));
+  }
+};
 //Update Activity
 // returns the document after update was applied
 activityController.updateActivity = async (req, res, next) => {
@@ -73,14 +89,14 @@ activityController.updateActivity = async (req, res, next) => {
     } else {
       throw new Error('nonvalid activity_id');
     }
-  } catch(err) {
+  } catch (err) {
     return next(createErr({
       method: 'updateActivity',
       type: 'updateActivityErr',
       err
     }));
   }
-}
+};
 
 module.exports = activityController;
 
