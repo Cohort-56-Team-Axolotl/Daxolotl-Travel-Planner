@@ -123,3 +123,40 @@ $blue: rgba(162, 210, 255, 1);
     }
   }
 }
+
+.signup-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 80px;
+
+  .signupform {
+    background-color: $lightpink;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 80px;
+
+    label {
+      font-size: 20px;
+    }
+
+    input {
+      height: 40px;
+      width: 300px;
+      border-radius: 10px;
+      border: 1px solid $lightpink;
+      padding: 10px;
+      font-size: 22px;
+    }
+
+    button {
+      padding: 10px 110px;
+      margin: 15px auto;
+      border-radius: 10px;
+      background-color: $lightblue;
+      border: 1px solid $lightblue;
+      font-size: 20px;
+    }
+  }
+}
