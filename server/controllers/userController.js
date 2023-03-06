@@ -114,15 +114,10 @@ userController.verifyUser = async (req, res, next) => {
 };
 
 
-// Read to get user
-// Delete user
-
-// Login user
-// Verify user
-
 // TODO later convert to using global error handler: Low priority
 
 // stretch
+// Delete user
 // update user info?
 
 module.exports = userController;

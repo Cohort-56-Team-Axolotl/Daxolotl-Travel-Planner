@@ -1,4 +1,5 @@
 const Activity = require('../models/activityModel');
+const Itinerary = require('../models/itineraryModel');
 const mongoose = require('mongoose');
 const activityController = {};
 
@@ -13,10 +14,29 @@ const createErr = (errInfo) => {
 };
 
 //Get all activities
-const getActivities = async (req, res, next) => {
+activityController.getActivities = async (req, res, next) => {
+
+  const { itineraryId } = req.params;
+
   try {
-    const activities = await Activity.find({}).sort({ date: -1 }).sort({ time: -1 });
-    res.locals.activities = activities;
+    const itinerary = await Itinerary.findOne({ _id : itineraryId });
+
+    res.locals.activities = [];
+    //loop over activity ids - to find each activity in the database
+    itinerary.activities.forEach(activity => {
+      Activity.findOne({ _id: activity._id })
+        .then(activityDoc => {
+          if (activityDoc === null) {
+            return next(createErr({
+              method: 'getActivities',
+              type: 'ActivitiesNotFound'
+            }));
+          }
+          res.locals.activities.push(activityDoc);
+        });
+    });
+    
+    return next();
   } catch (err) {
     return next(createErr({
       method: 'getActivities',
@@ -24,18 +44,34 @@ const getActivities = async (req, res, next) => {
       err
     }));
   }
-}
+};
 
 
 //Create new activity, for manual input // req.body  from front end form
 activityController.createActivity = async (req, res, next) => {
   // destructure request body
-  const { name, date, time, duration, description, location } = req.body;
+  const { name, date, duration, description, location } = req.body;
+  const { id } = req.params;
   // add activity to db
   try {
-    const activity = await Activity.create({ name, date, time, duration, description, location });
-    res.locals.newActivity = activity;
-    return next();
+    const newActivity = await Activity.create({ name, date, duration, description, location });
+    try {
+      // findOneAndUpdate for itinerary for specific session 
+      const activity = await Itinerary.findOneAndUpdate({_id: id },
+        // mongoose push method
+        {$push: { activities: newActivity._id }},
+        {new:true}
+      );
+      res.locals.newActivityList = activity;
+      return next();
+    } catch (err) {
+      return next(createErr({
+        method: 'addNewActivityToList',
+        type: 'addNewActivityToListErr',
+        err
+      }));
+    }
+    
   } catch (err) {
     return next(createErr({
       method: 'createActivity',
@@ -43,6 +79,7 @@ activityController.createActivity = async (req, res, next) => {
       err
     }));
   }
+  
 };
 
 //Delete activity
@@ -55,6 +92,8 @@ activityController.deleteActivity = async (req, res, next) => {
       if (!activity) {
         throw new Error('falsy activity_id');
       }
+      res.locals.deleted = activity;
+      return next();
     } else {
       throw new Error('nonvalid activity_id');
     }

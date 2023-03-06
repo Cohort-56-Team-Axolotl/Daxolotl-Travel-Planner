@@ -29,4 +29,7 @@ const itinerarySchema = new Schema({
   ]
 });
 
+// activities: activities.push(newActivity)
+//activities: [...activities, newActivity]
+
 module.exports = mongoose.model('Itinerary', itinerarySchema);

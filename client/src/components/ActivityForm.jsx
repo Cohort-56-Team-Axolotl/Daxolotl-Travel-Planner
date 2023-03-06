@@ -6,7 +6,6 @@ const ActivityForm = () => {
   const { dispatch } = useActivitiesContext();
   const [name, setActivityName] = useState('');
   const [date, setDate] = useState('');
-  const [time, setTime] = useState('');
   const [duration, setDuration] = useState('');
   const [description, setDescription] = useState('');
   const [location, setLocation] = useState('');
@@ -15,7 +14,7 @@ const ActivityForm = () => {
     // prevents the entire page from refreshing when submit is clicked
     e.preventDefault();
     //Post request to add a new activity -> should return data as the new activity
-    const newActivity = { name, date, time, duration, description, location };
+    const newActivity = { name, date, duration, description, location };
 
     const response = await axios.post('/api/activities', newActivity, {
       headers: {
@@ -28,7 +27,6 @@ const ActivityForm = () => {
     if(response.status === 200){
       setActivityName('');
       setDate('');
-      setTime('');
       setDuration('');
       setDescription('');
       setLocation('');
@@ -46,16 +44,10 @@ const ActivityForm = () => {
           onChange = {(e) => setActivityName(e.target.value)}
         />
 
-        <label>Date</label>
-        <input type='date' 
+        <label>Start Date and Time</label>
+        <input type='datetime-local' 
           value = {date}
           onChange = {(e) => setDate(e.target.value)}
-        />
-
-        <label>Start Time</label>
-        <input type='time' 
-          value = {time}
-          onChange = {(e) => setTime(e.target.value)}
         />
 
         <label>Duration</label>

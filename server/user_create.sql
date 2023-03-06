@@ -19,7 +19,7 @@ SET row_security = off;
 -- query for public.user so not to grab current user from SQL
 CREATE TABLE public.user (
 	"_id" serial NOT NULL,
-	"username" varchar NOT NULL,
+	"username" varchar NOT NULL UNIQUE,
 	"password" varchar NOT NULL,
 	"first_name" varchar NOT NULL,
 	"last_name" varchar NOT NULL,

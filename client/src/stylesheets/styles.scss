@@ -47,23 +47,64 @@ $purple: rgba(205, 180, 219, 1);
 $lightblue: rgba(189, 224, 254, 1);
 $blue: rgba(162, 210, 255, 1);
 
-* {
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  border: none;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
+
+/* <html> = the root */
+html {
+  font-size: 62.5%; /* (62.5/100) * 16px = 10px e.g. 1.2 * 10 = 12px : 1.2rem*/
+  -webkit-text-size-adjust: none; /* for iOS Safari */
+  text-size-adjust: none; /* for other mobile browsers */
+  font-family: 'Noto Sans', sans-serif;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  /* Places underlines below the descenders */
+  text-underline-position: under;
+  /* Sets the thickness as a percentage of the font size */
+  text-decoration-thickness: 8;
+}
+
+// :focus:not(:focus-visible) {
+//   outline: none;
+// }
+
+label,
+button,
+select,
+summary,
+[type=radio],
+[type=submit],
+[type=checkbox] {
+    cursor: pointer;
+}
+
+// boilerplate ^^^
 
 .login-page {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 12rem;
+  height: 100vh;
 
   .withoutNav {
     width: 100%;
     background-color: $lightblue;
     display: flex;
     align-items: center;
-    height: 120px;
+    height: 12rem;
 
     img {
       height: 100px;
@@ -72,12 +113,12 @@ $blue: rgba(162, 210, 255, 1);
   }
 
   .login-container {
-    margin-top: 175px;
     display: flex;
     background-color: $lightpink;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    justify-self: center;
+
     padding: 80px;
 
     .loginForm {
@@ -105,6 +146,14 @@ $blue: rgba(162, 210, 255, 1);
         background-color: $lightblue;
         border: 1px solid $lightblue;
         font-size: 20px;
+      }
+
+      button:hover{
+        background-color:$blue;
+      }
+
+      button:active{
+        transform: scale(0.97);
       }
     }
 
@@ -158,5 +207,24 @@ $blue: rgba(162, 210, 255, 1);
       border: 1px solid $lightblue;
       font-size: 20px;
     }
+    
+    button:hover{
+      background-color:$blue;
+    }
+
+    button:active{
+      transform: scale(0.97);
+    }
   }
 }
+
+// navbar is just the home button with the axolotl image
+// div class ItineraryList
+  // div itinerary
+// div class ItineraryInformationDisplay
+
+// div itineraryForm
+  // label
+  // input
+  // ...
+  // button add Itinerary

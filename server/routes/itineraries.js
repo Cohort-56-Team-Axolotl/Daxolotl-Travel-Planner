@@ -5,10 +5,10 @@ const itineraryController = require('../controllers/itineraryController');
 
 
 // //GET all itineraries for specific user
-// router.get('/all/:userid',
-//   itineraryController.getItineraries,
-//   (req, res) => res.status(200).json(res.locals.itineraries)
-// );
+router.get('/all',
+  itineraryController.getAllItineraries,
+  (req, res) => res.status(200).json(res.locals.itineraries)
+);
 
 //GET a single itinerary for a specific user
 router.get('/:itineraryid',

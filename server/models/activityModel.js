@@ -12,10 +12,6 @@ const activitySchema = new Schema({
     type: Date,
     required: true
   },
-  time: {
-    type: Number,
-    required: true
-  },
   duration: {
     type: Number,
     required: true

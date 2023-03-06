@@ -12,7 +12,7 @@ router.get('/:itineraryId',
 //POST a new activity
 router.post('/',
   activityController.createActivity,
-  (req, res) => res.status(200).json(res.locals.newActivity)
+  (req, res) => res.status(200).json(res.locals.newActivityList)
 );
 
 //DELETE an activity

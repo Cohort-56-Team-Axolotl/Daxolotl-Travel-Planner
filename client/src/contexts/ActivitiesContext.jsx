@@ -7,13 +7,24 @@ export const ActivitiesContext = React.createContext();
 const activityReducer = (state, action) => {
   switch(action.type) {
   case 'SET_ACTIVITIES':
+    const activitiesArr =  action.payload;
+    if (activitiesArr.length > 0){
+      activitiesArr.sort((a,b) => {
+        return a.date - b.date;
+      });
+    }
+    
     return {
       activities: action.payload
     };
 
   case 'CREATE_ACTIVITY':
+    const newActivities = [...state.activities, action.payload];
+    newActivities.sort((a,b) => {
+      return a.date - b.date;
+    });
     return {
-      activities: [...state.activities, action.payload]
+      activities: newActivities
     };
 
   case 'UPDATE_ACTIVITY':
@@ -42,7 +53,7 @@ const activityReducer = (state, action) => {
 
 export const ActivitiesContextProvider = ({ children }) => {
 
-  const [ state, dispatch ] = useReducer(activityReducer, {activites: null});
+  const [ state, dispatch ] = useReducer(activityReducer, {activites: []});
 
   return(
     <ActivitiesContext.Provider value={{...state, dispatch}}>
@@ -52,6 +63,3 @@ export const ActivitiesContextProvider = ({ children }) => {
 };
 
 
-
-// provider
-  // render within here
