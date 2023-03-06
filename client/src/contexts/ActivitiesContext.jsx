@@ -10,27 +10,31 @@ const activityReducer = (state, action) => {
     return {
       activities: action.payload
     };
+
   case 'CREATE_ACTIVITY':
     return {
       activities: [...state.activities, action.payload]
     };
+
   case 'UPDATE_ACTIVITY':
     // map through the current activities state and replace the one with the matching id with our new action.payload
-    const newActivities = state.activities.map((activity) => {
-      // insert logic here
+    const updatedActivities = state.activities.map((activity) => {
+      return activity._id != action.payload._id ? activity : action.payload;
     });
     return {
-      activities: newActivities
-    }
+      activities: updatedActivities
+    };
+    
   case 'DELETE_ACTIVITY':
     // filter through the current activities state and delete the one with the matching id with our new action.payload
-    // const newActivities = state.activities.filter((activity) => {
-    //   // insert logic here
-    // });
+    const nonDeletedActivities = state.activities.filter((activity) => {
+      return activity._id != action.payload._id;
+    });
 
     return {
-      activities: newActivities
-    }
+      activities: nonDeletedActivities
+    };
+    
   default:
     return state;
   }
