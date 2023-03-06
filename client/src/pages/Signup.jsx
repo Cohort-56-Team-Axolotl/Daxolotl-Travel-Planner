@@ -30,14 +30,14 @@ const Signup = () => {
       setSendToLogin(true);
       console.log('you have successfully signed up!');
     }
-
-    if(sendBacktoLogin){
-      return <Navigate to='/' />;
-    }
   };
 
+  if(sendBacktoLogin){
+    return <Navigate to='/' />;
+  }
+
   return(
-    <div>
+    <div className='signup-page'>
       <form className='signupform' onSubmit={handleSubmit}>
         <label>First Name</label>
         <input type='text'
