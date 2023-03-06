@@ -92,23 +92,61 @@ summary,
 
 // boilerplate ^^^
 
+.pages {
+  display: flex;
+  flex-direction: column;
+}
+
+// Defaults
+label {
+  font-size: 2rem;
+}
+
+input {
+  height: 4rem;
+  width: 30rem;
+  border-radius: 10px;
+  border: 1px solid $lightpink;
+  padding: 1rem;
+  font-size: 2.2rem;
+}
+
+button {
+  padding: 1rem 12.2rem;
+  margin: 1.5rem auto;
+  border-radius: 10px;
+  background-color: $lightblue;
+  border: 1px solid $lightblue;
+  font-size: 2rem;
+}
+
+button:hover{
+  background-color:$blue;
+}
+
+button:active{
+  transform: scale(0.97);
+}
+
+
 .login-page {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 12rem;
+  width: 100%;
   height: 100vh;
 
   .withoutNav {
-    width: 100%;
     background-color: $lightblue;
+    width: 100%;
+    height: 12rem;
     display: flex;
     align-items: center;
-    height: 12rem;
 
     img {
-      height: 100px;
-      margin-left: 20px;
+      height: 10rem;
+      margin-left: 2rem;
     }
   }
 
@@ -117,48 +155,16 @@ summary,
     background-color: $lightpink;
     flex-direction: column;
     justify-content: center;
-    justify-self: center;
-
-    padding: 80px;
+    padding: 8rem;
 
     .loginForm {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-
-      label {
-        font-size: 20px;
-      }
-
-      input {
-        height: 40px;
-        width: 300px;
-        border-radius: 10px;
-        border: 1px solid $lightpink;
-        padding: 10px;
-        font-size: 22px;
-      }
-
-      button {
-        padding: 10px 122px;
-        margin: 15px auto;
-        border-radius: 10px;
-        background-color: $lightblue;
-        border: 1px solid $lightblue;
-        font-size: 20px;
-      }
-
-      button:hover{
-        background-color:$blue;
-      }
-
-      button:active{
-        transform: scale(0.97);
-      }
     }
 
     h5 {
-      font-size: 20px;
+      font-size: 2rem;
       
       :link {
         text-decoration: none;
@@ -219,9 +225,39 @@ summary,
 }
 
 // navbar is just the home button with the axolotl image
+.Navbar {
+  background-color: $lightblue;
+  width: 100%;
+  height: 12rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  img,
+  a,
+  button {
+    max-height: 100%;
+  }
+
+  button {
+    padding: 1rem 12.2rem;
+    // margin: 1.5rem auto;
+    border-radius: 10px;
+    background-color: $lightpink;
+    border: 1px solid $lightpink;
+    font-size: 2rem;
+  }
+}
 // div class ItineraryList
   // div itinerary
 // div class ItineraryInformationDisplay
+.ItineraryInformationDisplay {
+  .activityForm {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
 
 // div itineraryForm
   // label
