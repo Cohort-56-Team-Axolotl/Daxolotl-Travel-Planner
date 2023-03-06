@@ -1,45 +1,4 @@
-// #root {
-//   max-width: 1280px;
-//   margin: 0 auto;
-//   padding: 2rem;
-//   text-align: center;
-// }
-
-// .logo {
-//   height: 6em;
-//   padding: 1.5em;
-//   will-change: filter;
-//   transition: filter 300ms;
-// }
-// .logo:hover {
-//   filter: drop-shadow(0 0 2em #646cffaa);
-// }
-// .logo.react:hover {
-//   filter: drop-shadow(0 0 2em #61dafbaa);
-// }
-
-// @keyframes logo-spin {
-//   from {
-//     transform: rotate(0deg);
-//   }
-//   to {
-//     transform: rotate(360deg);
-//   }
-// }
-
-// @media (prefers-reduced-motion: no-preference) {
-//   a:nth-of-type(2) .logo {
-//     animation: logo-spin infinite 20s linear;
-//   }
-// }
-
-// .card {
-//   padding: 2em;
-// }
-
-// .read-the-docs {
-//   color: #888;
-// }
+$page-color: rgba(58, 51, 53, 1);
 
 $lightpink: rgba(255, 200, 221, 1);
 $pink: rgba(255, 175, 204, 1);
@@ -86,49 +45,71 @@ select,
 summary,
 [type=radio],
 [type=submit],
-[type=checkbox] {
+[type=checkbox],
+[type=date] {
     cursor: pointer;
 }
 
 // boilerplate ^^^
 
 .pages {
+  background-color: $page-color;
+  height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
 // Defaults
-label {
-  font-size: 2rem;
+
+img,
+a,
+button {
+  max-height: 100%;
 }
 
-input {
-  height: 4rem;
-  width: 30rem;
-  border-radius: 10px;
-  border: 1px solid $lightpink;
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  max-width: 40rem;
   padding: 1rem;
-  font-size: 2.2rem;
+  
+  label {
+    display: block;
+    font-size: 2rem;
+  }
+
+  input {
+    display: block;
+    height: 4rem;
+    width: 30rem;
+    border-radius: 10px;
+    border: 1px solid $lightpink;
+    padding: 1rem;
+    font-size: 2.2rem;
+  }
 }
 
 button {
   padding: 1rem 12.2rem;
-  margin: 1.5rem auto;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
   border-radius: 10px;
   background-color: $lightblue;
   border: 1px solid $lightblue;
   font-size: 2rem;
 }
 
-button:hover{
+button:hover {
   background-color:$blue;
 }
 
-button:active{
+button:active {
   transform: scale(0.97);
 }
 
-
+// page specific styling
 .login-page {
   display: flex;
   flex-direction: column;
@@ -143,25 +124,14 @@ button:active{
     height: 12rem;
     display: flex;
     align-items: center;
-
-    img {
-      height: 10rem;
-      margin-left: 2rem;
-    }
   }
 
   .login-container {
-    display: flex;
     background-color: $lightpink;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     padding: 8rem;
-
-    .loginForm {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-    }
 
     h5 {
       font-size: 2rem;
@@ -183,48 +153,44 @@ button:active{
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 80px;
+  padding: 8rem;
 
   .signupform {
     background-color: $lightpink;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 80px;
+    padding: 8rem;
 
     label {
       font-size: 20px;
     }
 
     input {
-      height: 40px;
-      width: 300px;
+      height: 4rem;
+      width: 30rem;
       border-radius: 10px;
       border: 1px solid $lightpink;
-      padding: 10px;
-      font-size: 22px;
+      padding: 1rem;
+      font-size: 2.2rem;
     }
 
     button {
-      padding: 10px 110px;
-      margin: 15px auto;
+      padding: 1rem 11rem;
+      margin: 1.5rem auto;
       border-radius: 10px;
       background-color: $lightblue;
       border: 1px solid $lightblue;
-      font-size: 20px;
+      font-size: 2rem;
     }
     
     button:hover{
       background-color:$blue;
     }
-
-    button:active{
-      transform: scale(0.97);
-    }
   }
 }
 
-// navbar is just the home button with the axolotl image
+// Home page
 .Navbar {
   background-color: $lightblue;
   width: 100%;
@@ -232,12 +198,6 @@ button:active{
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  img,
-  a,
-  button {
-    max-height: 100%;
-  }
 
   button {
     padding: 1rem 12.2rem;
@@ -248,14 +208,31 @@ button:active{
     font-size: 2rem;
   }
 }
-// div class ItineraryList
-  // div itinerary
-// div class ItineraryInformationDisplay
+
+.ItineraryList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+
 .ItineraryInformationDisplay {
+  color: $lightblue;
+  
+  .ItineraryOverview {
+    
+  }
+
   .activityForm {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    label {
+      color: $lightblue;
+    }
+  }
+}
+
+.itineraryForm {
+  label {
+    color: $lightblue;
   }
 }
 
@@ -264,3 +241,48 @@ button:active{
   // input
   // ...
   // button add Itinerary
+
+// VITE initial CSS
+// #root {
+//   max-width: 1280px;
+//   margin: 0 auto;
+//   padding: 2rem;
+//   text-align: center;
+// }
+
+// .logo {
+//   height: 6em;
+//   padding: 1.5em;
+//   will-change: filter;
+//   transition: filter 300ms;
+// }
+// .logo:hover {
+//   filter: drop-shadow(0 0 2em #646cffaa);
+// }
+// .logo.react:hover {
+//   filter: drop-shadow(0 0 2em #61dafbaa);
+// }
+
+// @keyframes logo-spin {
+//   from {
+//     transform: rotate(0deg);
+//   }
+//   to {
+//     transform: rotate(360deg);
+//   }
+// }
+
+// @media (prefers-reduced-motion: no-preference) {
+//   a:nth-of-type(2) .logo {
+//     animation: logo-spin infinite 20s linear;
+//   }
+// }
+
+// .card {
+//   padding: 2em;
+// }
+
+// .read-the-docs {
+//   color: #888;
+// }
+
