@@ -68,7 +68,7 @@ const Home = () => {
       </div>
       <div className="ItineraryInformationDisplay">
         {/* If itineraries is NOT NULL, then perform what is after the && */}
-        {currentlyOpenItinerary && 
+        {currentlyOpenItinerary.length > 0 && 
           <Itinerary key={currentlyOpenItinerary._id} itinerary={currentlyOpenItinerary}/>
         }
       </div>
