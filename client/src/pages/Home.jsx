@@ -90,9 +90,9 @@ const Home = () => {
         </div>
       </div>
       {modalOpen &&
-        <div>
+        <div className="ItineraryForm">
           <button onClick={toggleModal}>Cancel</button>
-          <form className='itineraryForm' onSubmit = {handleSubmit}>
+          <form onSubmit = {handleSubmit}>
             <label>Itinerary Name</label>
             <input type='text'
               value = {itinerary_name}
