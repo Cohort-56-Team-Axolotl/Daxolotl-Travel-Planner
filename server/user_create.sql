@@ -2,7 +2,6 @@
 -- default is the public schema 
 -- 
 -- psql -d <url from elephantSQL> -f user_create.sql
--- psql -d postgres://ipvthdrz:k2nITovGsfy1jDFVFiVZRQEiFmLJOFDV@mahmud.db.elephantsql.com/ipvthdrz -f user_create.sql
 -- CREATE TABLE products ( ... ); === CREATE TABLE public.products ( ... );
 
 SET statement_timeout = 0;
