@@ -51,9 +51,9 @@ const Activity = ({ activity }) => {
       <button onClick={toggleModal}>Make Changes</button> 
       <button onClick={handleDelete}>Delete</button>
       {modalOpen && 
-        <div>
+        <div className="updateActivityForm">
           <button onClick={toggleModal}>X</button>
-          <form className="updateActivityForm" onSubmit={handleUpdate}>
+          <form onSubmit={handleUpdate}>
             <label>Name</label>
             <input type='text'
               value={activityName}

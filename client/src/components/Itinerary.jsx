@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useActivitiesContext } from '../hooks/useActivityContext.jsx';
 import { useItinerariesContext } from '../hooks/useItineraryContext';
 import ActivityForm from '../components/ActivityForm.jsx';
-// const format = require('date-fns/format');
+// import { format } from 'date-fns';
 
 
 const Itinerary = ({ itinerary }) => {
@@ -75,7 +75,7 @@ const Itinerary = ({ itinerary }) => {
             </div>
           </div>
           <div>
-            <h2>Itinerary</h2>
+            {/* <h2>Itinerary</h2> */}
             {activities && activities.map(activity => (
               <Activity key={activity._id} activity={activity} />
             ))}
@@ -84,9 +84,9 @@ const Itinerary = ({ itinerary }) => {
             {itinerary && <ActivityForm id={itinerary._id}/>}
           </div>
           {modalOpen && 
-            <div>
+            <div className='updateItineraryForm'>
               <button onClick={toggleModal}>x</button>
-              <form className='updateItineraryForm' onSubmit={handleUpdate}>
+              <form onSubmit={handleUpdate}>
                 <label>Name</label>
                 <input type='text'
                   value={itineraryName}
