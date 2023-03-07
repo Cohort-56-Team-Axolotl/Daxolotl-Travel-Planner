@@ -21,22 +21,29 @@ activityController.getActivities = async (req, res, next) => {
   try {
     const itinerary = await Itinerary.findOne({ _id : itineraryId });
 
-    res.locals.activities = [];
-    //loop over activity ids - to find each activity in the database
-    itinerary.activities.forEach(activity => {
-      Activity.findOne({ _id: activity._id })
-        .then(activityDoc => {
-          if (activityDoc === null) {
-            return next(createErr({
-              method: 'getActivities',
-              type: 'ActivitiesNotFound'
-            }));
-          }
-          res.locals.activities.push(activityDoc);
-        });
-    });
+    // res.locals.activities = [];
     
-    return next();
+    Activity.find({_id: {$in: itinerary.activities}})
+      .then(data => {
+        console.log('this is activities data', data);
+        res.locals.activities = data;
+        return next();
+      });
+    //loop over activity ids - to find each activity in the database
+    // itinerary.activities.forEach(activity => {
+    //   Activity.findOne({ _id: activity._id })
+    //     .then(activityDoc => {
+    //       if (activityDoc === null) {
+    //         return next(createErr({
+    //           method: 'getActivities',
+    //           type: 'ActivitiesNotFound'
+    //         }));
+    //       }
+    //       res.locals.activities.push(activityDoc);
+    //     });
+    // });
+    
+    // return next();
   } catch (err) {
     return next(createErr({
       method: 'getActivities',
@@ -51,13 +58,13 @@ activityController.getActivities = async (req, res, next) => {
 activityController.createActivity = async (req, res, next) => {
   // destructure request body
   const { name, date, duration, description, location } = req.body;
-  const { id } = req.params;
+  const { itineraryId } = req.params;
   // add activity to db
   try {
     const newActivity = await Activity.create({ name, date, duration, description, location });
     try {
       // findOneAndUpdate for itinerary for specific session 
-      const activity = await Itinerary.findOneAndUpdate({_id: id },
+      const activity = await Itinerary.findOneAndUpdate({_id: itineraryId },
         // mongoose push method
         {$push: { activities: newActivity._id }},
         {new:true}

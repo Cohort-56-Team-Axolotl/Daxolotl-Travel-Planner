@@ -17,11 +17,25 @@ const Home = () => {
   const [end_date, setEndDate] = useState('');
 
   useEffect(() => {
+    // const getData = async () => {
+    //   const response = await fetch('/api/itineraries/all');
+    //   const data = await response.json();
+    //   if (response.ok){
+    //     console.log('this is data', data);
+    //     dispatch({type: 'SET_ITINERARIES', payload: data});
+    //   }
+    // }
+    // getData();
     axios.get('/api/itineraries/all')
       .then(response => {
         if (response.status === 200){
-          dispatch({type: 'SET_ITINERARIES', payload: response});
-          // setCurrentlyOpenItinerary(itineraries[0]);
+          console.log('axios data is:', response.data);
+          dispatch({type: 'SET_ITINERARIES', payload: response.data.itineraries});
+          console.log('state is', itineraries);
+          // if (itineraries.length > 0) setCurrentlyOpenItinerary(itineraries[0]);
+          // console.log('currently open itinerary is', currentlyOpenItinerary);
+          // // console.log('itineraries', itineraries);
+          // console.log('state is', itineraries);
         }
       });
     // the empty array below set its so that useEffect will only be done once
@@ -39,7 +53,7 @@ const Home = () => {
       }
     });
     
-    const newData = await response.json();
+    // const newData = await response.json();
 
     if(response.status === 200){
       setItineraryName('');
@@ -47,7 +61,8 @@ const Home = () => {
       setStartDate('');
       setEndDate('');
       toggleModal();
-      dispatch({type: 'CREATE_ITINERARIES', payload: newData});
+      console.log('new itinerary is', response.data);
+      dispatch({type: 'CREATE_ITINERARIES', payload: response.data});
     }
 
 
@@ -60,17 +75,19 @@ const Home = () => {
   return(
     <>
       <Navbar />
-      <div className="ItineraryList">
-        {itineraries.length > 0 && itineraries.map((itinerary) => 
-          <button key={itinerary._id} onClick={() => setCurrentlyOpenItinerary(itinerary)}>{itinerary.itinerary_name}</button>
-        )};
-        <button onClick={toggleModal}>+ Create New Itinerary</button>
-      </div>
-      <div className="ItineraryInformationDisplay">
-        {/* If itineraries is NOT NULL, then perform what is after the && */}
-        {currentlyOpenItinerary.length > 0 && 
-          <Itinerary key={currentlyOpenItinerary._id} itinerary={currentlyOpenItinerary}/>
-        }
+      <div className="ItinerariesContainer">
+        <div className="ItineraryList">
+          {itineraries.length > 0 && itineraries.map((itinerary) => (
+            <button key={itinerary._id} onClick={() => setCurrentlyOpenItinerary(itinerary)}>{itinerary.itinerary_name}</button>
+          ))}
+          <button onClick={toggleModal}>+ Create New Itinerary</button>
+        </div>
+        <div className="ItineraryInformationDisplay">
+          {/* If itineraries is NOT NULL, then perform what is after the && */}
+          {currentlyOpenItinerary !== null && 
+            <Itinerary key={currentlyOpenItinerary._id} itinerary={currentlyOpenItinerary}/>
+          }
+        </div>
       </div>
       {modalOpen &&
         <div>

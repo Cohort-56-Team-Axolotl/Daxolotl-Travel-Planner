@@ -23,9 +23,9 @@ const Navbar = () => {
     <nav className='Navbar'>
       <img src={axolotlBoba} />
       <Link to='/home'>
-        <button>Home</button>
+        <h1>Home</h1>
       </Link>
-      <button span className = 'log-out' onClick = {handleClick}><h2>Logout</h2></button>
+      <h1 onClick = {handleClick}>Log Out</h1>
     </nav>
   );
 };

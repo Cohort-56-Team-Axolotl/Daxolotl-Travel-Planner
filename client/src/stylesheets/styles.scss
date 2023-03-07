@@ -21,6 +21,7 @@ html {
   -webkit-text-size-adjust: none; /* for iOS Safari */
   text-size-adjust: none; /* for other mobile browsers */
   font-family: 'Noto Sans', sans-serif;
+  background-color: $page-color;
 }
 
 img {
@@ -33,6 +34,7 @@ a {
   text-underline-position: under;
   /* Sets the thickness as a percentage of the font size */
   text-decoration-thickness: 8;
+  text-decoration: none;
 }
 
 // :focus:not(:focus-visible) {
@@ -51,6 +53,28 @@ summary,
 }
 
 // boilerplate ^^^
+
+.Navbar{
+  h1{
+    font-size: 2.5rem;
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  h1:link { text-decoration: none; }
+
+
+  h1:visited { text-decoration: none; }
+
+
+  h1:hover{
+    color: pink
+  }
+  h1:active{
+    transform:scale(0.97)
+  }
+}
+
 
 .pages {
   background-color: $page-color;
@@ -72,7 +96,7 @@ form {
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  max-width: 40rem;
+  // max-width: 40rem;
   padding: 1rem;
   
   label {
@@ -92,7 +116,7 @@ form {
 }
 
 button {
-  padding: 1rem 12.2rem;
+  // padding: 1rem 12.2rem;
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
   border-radius: 10px;
@@ -209,22 +233,55 @@ button:active {
   }
 }
 
+.ItinerariesContainer {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+}
+
 .ItineraryList {
   display: flex;
+  flex-direction: column;
+  width: 300px;
+  margin-right: 200px;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: flex-start;
 }
 
 
 .ItineraryInformationDisplay {
+  display: flex;
+  flex-direction: column;
   color: $lightblue;
   
+  
+  //itinerary.jsx line 67
   .ItineraryOverview {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+
     padding: 1.5rem;
     box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
+
+    h1 {
+      font-size: 50px;
+    }
+
+    h2 {
+      font-size: 30px;
+    }
+
+    h3 {
+      font-size: 20px;
+    }
+
+    button {
+      width: 40rem;
+      padding: 5px 0px;
+      margin: 5px;
+
+    }
   }
 
   .activityForm {
@@ -237,6 +294,32 @@ button:active {
 .itineraryForm {
   label {
     color: $lightblue;
+  }
+}
+
+.Activity{
+  font-size: 2rem;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
+
+  button{
+    font-size: 1.4rem;
+    margin: 10px;
+    padding: 10px;
+    width: 10vw
+    // text-align: center;
+    // text-transform: uppercase;
+    // height: 50px;
+    // width: 200px;
+  }
+  button:hover {
+    background-color:$blue;
+  }
+
+  button:active {
+    transform: scale(0.97);
   }
 }
 

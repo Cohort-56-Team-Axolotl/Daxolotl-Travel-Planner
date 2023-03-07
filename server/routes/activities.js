@@ -10,7 +10,7 @@ router.get('/:itineraryId',
 );
 
 //POST a new activity
-router.post('/',
+router.post('/:itineraryId',
   activityController.createActivity,
   (req, res) => res.status(200).json(res.locals.newActivityList)
 );

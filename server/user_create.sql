@@ -31,7 +31,7 @@ CREATE TABLE public.user (
 CREATE TABLE public.users_itineraries (
 	"_id" serial NOT NULL,
 	"user_id" bigint NOT NULL,
-	"mongo_id" bigint NOT NULL,
+	"mongo_id" varchar NOT NULL,
 	CONSTRAINT "users_itineraries_pk" PRIMARY KEY ("_id")
 ) WITH (
   OIDS=FALSE

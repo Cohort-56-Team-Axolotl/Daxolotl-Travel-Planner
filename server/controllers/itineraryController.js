@@ -19,7 +19,6 @@ const createErr = (errInfo) => {
 itineraryController.getAllItineraries = async (req, res, next) => {
 //Get user ID
   const user_id = req.cookies.ssid;
-
   const query = {
     text: `SELECT * FROM public.users_itineraries
     WHERE user_id = $1;`,
@@ -30,27 +29,37 @@ itineraryController.getAllItineraries = async (req, res, next) => {
     const response = await db.query(query.text, query.values);
     // console.log(response);
     const { rows } = response;
-
-    res.locals.itineraries = [];
-
-    rows.forEach(itinerary => {
-      Itinerary.findOne({_id: itinerary.mongo_id})
-        .then(itineraryDoc => {
-          if(itineraryDoc === null){
-            return next(createErr({
-              method: 'getAllItineraries',
-              type: 'ItineraryNotFound'
-            }));
-          }
-          res.locals.itineraries.push(itineraryDoc);
-        })
-        .catch(err => (next(createErr({
-          method: 'getAllItineraries',
-          type: 'findError',
-          err
-        }))));
+    //put all of the object id from each itinerary in an array -> spread that over the find query
+    const objectIds = [];
+    // console.log(rows);
+    rows.forEach(el => {
+      objectIds.push(el.mongo_id);
     });
-    return next();
+    Itinerary.find({_id: {$in: objectIds}})
+      .then(data => {
+        // console.log('this is itinerary data', data);
+        res.locals.itineraries = data;
+        return next();
+      });
+    // rows.forEach(itinerary => {
+    //   Itinerary.findOne({_id: itinerary.mongo_id})
+    //     .then(itineraryDoc => {
+    //       if(itineraryDoc === null){
+    //         return next(createErr({
+    //           method: 'getAllItineraries',
+    //           type: 'ItineraryNotFound'
+    //         }));
+    //       }
+    //       res.locals.itineraries.push(itineraryDoc);
+    //       console.log('res.locals.itineraries', res.locals.itineraries);
+          
+    //     })
+    //     .catch(err => (next(createErr({
+    //       method: 'getAllItineraries',
+    //       type: 'findError',
+    //       err
+    //     }))));
+    // });
 
   } catch (err) {
     return next(createErr({
@@ -95,31 +104,35 @@ itineraryController.createItinerary = (req, res, next) => {
   // shorthand assignment
   Itinerary.create({ itinerary_name, destination, start_date, end_date })
     .then(itineraryDoc => {
+      console.log('building query');
+      // console.log('this is user_id', user_id);
+      // console.log('this is mongo_id', itineraryDoc._id.toHexString());
       const query = {
         text : `
-          INSERT INTO users_itineraries
+          INSERT INTO public.users_itineraries
             (user_id, mongo_id)
           VALUES
             ($1, $2)
-          RETURNING *
+          RETURNING *;
         `,
         values : [
           user_id,
-          itineraryDoc._id
+          itineraryDoc._id.toHexString()
         ]
       };
-      db.query(query.text, query.value)
+      res.locals.newItinerary = itineraryDoc;
+      console.log(res.locals.newItinerary)
+      db.query(query.text, query.values)
         .then(response => {
           const { rows } = response;
           console.log(`inserted itinerary._id ${rows[0]} into db`);
+          return next();
         })
         .catch(err => (next(createErr({
           method: 'createItinerary',
           type: 'insertionIssue',
           err
         }))));
-      res.locals.newItinerary = itineraryDoc;
-      return next();
     })
     .catch(err => (next(createErr({
       method: 'createItinerary',

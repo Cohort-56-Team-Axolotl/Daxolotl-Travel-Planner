@@ -2,13 +2,16 @@ import React, { useState, useEffect } from 'react';
 import Activity from './Activity';
 import axios from 'axios';
 import { useActivitiesContext } from '../hooks/useActivityContext.jsx';
+import { useItinerariesContext } from '../hooks/useItineraryContext';
 import ActivityForm from '../components/ActivityForm.jsx';
+// const format = require('date-fns/format');
 
 
 const Itinerary = ({ itinerary }) => {
   const { itinerary_name, destination, start_date, end_date } = itinerary;
 
-  const { activities, dispatch } = useActivitiesContext();
+  const { activities, dispatch: dispatchForActivity } = useActivitiesContext();
+  const { dispatch } = useItinerariesContext();
   const [ modalOpen, setModalOpen ] = useState(false);
 
   const [ itineraryName, updateItineraryName ] = useState(itinerary_name);
@@ -16,20 +19,29 @@ const Itinerary = ({ itinerary }) => {
   const [ itineraryStartDate, updateItineraryStartDate ] = useState(start_date);
   const [ itineraryEndDate, updateItineraryEndDate ] = useState(end_date);
 
-  const handleUpdate = () => {
-    axios.patch(`/api/itineraries/${itinerary._id}`)
-      .then(response => response.json())
-      .then(data => {
+  const handleUpdate = (e) => {
+    e.preventDefault();
+
+    const updated = {
+      itinerary_name: itineraryName,
+      destination: itineraryDestination,
+      start_date: itineraryStartDate,
+      end_date: itineraryEndDate
+    };
+    
+    axios.patch(`/api/itineraries/${itinerary._id}`, updated)
+      .then(response => {
         toggleModal();
-        dispatch({type: 'UPDATE_ITINERARY', payload: data});
+        console.log('updated is:', response.data);
+        dispatch({type: 'UPDATE_ITINERARY', payload: response.data});
       });
   };
 
   const handleDelete = () => {
     axios.delete(`/api/itineraries/${itinerary._id}`)
-      .then(response => response.json())
-      .then(data => {
-        dispatch({type: 'DELETE_ITINERARY', payload: data});
+      .then(response => {
+        console.log('deleted is', response.data);
+        dispatch({type: 'DELETE_ITINERARY', payload: response.data});
       });
   };
 
@@ -40,12 +52,12 @@ const Itinerary = ({ itinerary }) => {
   // req.params -> is itinerary._id
   // const activities = itinerary.activities;
   useEffect(() => {
-    
-    if(itinerary){
+    console.log('itinerary is', itinerary);
+    if(itinerary && itinerary.activities !== null){
       axios.get(`/api/activities/${itinerary._id}`)
-        .then(response => response.json())
-        .then(data => {
-          if (data.status === 200) dispatch({type: 'SET_ACTIVITIES', payload: data});
+        .then(response => {
+          console.log('this is the activities for this itinerary', response.data);
+          if (response.status === 200) dispatchForActivity({type: 'SET_ACTIVITIES', payload: response.data});
         });}
   }, []);
 
@@ -53,12 +65,14 @@ const Itinerary = ({ itinerary }) => {
     <> 
       {itinerary && 
         <div>
-          <div>
+          <div className="ItineraryOverview">
             <h1>{itinerary.itinerary_name}</h1>
             <h2>{itinerary.destination}</h2>
             <h3>{itinerary.start_date} - {itinerary.end_date}</h3>
-            <button onClick={toggleModal}>Make Changes</button>
-            <button onClick={handleDelete}>Delete</button>
+            <div>
+              <button onClick={toggleModal}>Make Changes</button>
+              <button onClick={handleDelete}>Delete</button>
+            </div>
           </div>
           <div>
             <h2>Itinerary</h2>
@@ -67,7 +81,7 @@ const Itinerary = ({ itinerary }) => {
             ))}
           </div> 
           <div>
-            <ActivityForm />
+            {itinerary && <ActivityForm id={itinerary._id}/>}
           </div>
           {modalOpen && 
             <div>
@@ -76,28 +90,26 @@ const Itinerary = ({ itinerary }) => {
                 <label>Name</label>
                 <input type='text'
                   value={itineraryName}
-                  onChange={(e) => updateItineraryName(e.target.value)}>
-                </input>
+                  onChange={(e) => updateItineraryName(e.target.value)}/>
+                
 
                 <label>Destination</label>
                 <input type='text'
                   value={itineraryDestination}
-                  onChange={(e) => updateItineraryDestination(e.target.value)}>
-                </input>
+                  onChange={(e) => updateItineraryDestination(e.target.value)}/>
+                
 
                 <label>Start Date</label>
                 <input type='text'
                   value={itineraryStartDate}
-                  onChange={(e) => updateItineraryStartDate(e.target.value)}>
-                </input>
+                  onChange={(e) => updateItineraryStartDate(e.target.value)}/>
 
                 <label>End Date</label>
                 <input type='text'
                   value={itineraryEndDate}
-                  onChange={(e) => updateItineraryEndDate(e.target.value)}>
-                </input>
+                  onChange={(e) => updateItineraryEndDate(e.target.value)}/>
 
-                <input type='submit'>Update Itinerary</input>
+                <button>Update Itinerary</button>
               </form>
             </div>
           }

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useActivitiesContext } from '../hooks/useActivityContext.jsx';
 import axios from 'axios';
 
-const ActivityForm = () => {
+const ActivityForm = ({ id }) => {
   const { dispatch } = useActivitiesContext();
   const [name, setActivityName] = useState('');
   const [date, setDate] = useState('');
@@ -16,13 +16,11 @@ const ActivityForm = () => {
     //Post request to add a new activity -> should return data as the new activity
     const newActivity = { name, date, duration, description, location };
 
-    const response = await axios.post('/api/activities', newActivity, {
+    const response = await axios.post(`/api/activities/${id}`, newActivity, {
       headers: {
         'Content-Type': 'application/json'
       }
     });
-    
-    const newData = await response.json();
 
     if(response.status === 200){
       setActivityName('');
@@ -30,7 +28,7 @@ const ActivityForm = () => {
       setDuration('');
       setDescription('');
       setLocation('');
-      dispatch({type: 'CREATE_ACTIVITY', payload: newData});
+      dispatch({type: 'CREATE_ACTIVITY', payload: response.data});
     }
   };
 

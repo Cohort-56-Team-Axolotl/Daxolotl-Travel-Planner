@@ -72,7 +72,7 @@ userController.verifyUser = async (req, res, next) => {
   //Get username and password in request body (sent from user login event)
   const { username, password } = req.body;
   //If either one isn't filled in, return a fill in all fields error to the user
-  console.log(username, password)
+  console.log(username, password);
   try {
     if (!username || !password){
       throw new Error('Please fill all fields');
